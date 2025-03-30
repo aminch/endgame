@@ -50,7 +50,7 @@ combo_t key_combos[] = {
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   [_QWERTY] = LAYOUT(
     KC_Q,     KC_W,     KC_E,     KC_R,     KC_T,               KC_Y,     KC_U,     KC_I,     KC_O,     KC_P,
-    CTL_A,    ALT_S,    GUI_D,    SFT_F,    RALT_G,             RALT_H,   SFT_J,    ALT_L,    KC_L,     CTL_SEMI,
+    CTL_A,    ALT_S,    GUI_D,    SFT_F,    RALT_G,             RALT_H,   SFT_J,    GUI_K,    KC_L,     CTL_SEMI,
     KC_Z,     KC_X,     KC_C,     KC_V,     KC_B,               KC_N,     KC_M,     KC_COMM,  KC_DOT,   KC_SLSH,
     KC_LSFT,                      NUM_ESC,  NAV_SPC,            SYM_BSPC, FUN_ENT,                      KC_RSFT
   ),
