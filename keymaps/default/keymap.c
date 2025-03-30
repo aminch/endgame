@@ -17,10 +17,10 @@ enum layer_names {
 #define RALT_G MT(MOD_RALT, KC_G)
 
 // RIGHT HAND HOME ROW MODS
-#define RALT_H MT(MOD_RALT, KC_H)
+#define LALT_H MT(MOD_LALT, KC_H)
 #define SFT_J MT(MOD_RSFT, KC_J)
 #define GUI_K MT(MOD_RGUI, KC_K)
-#define ALT_L MT(MOD_LALT, KC_L)
+#define RALT_L MT(MOD_RALT, KC_L)
 #define CTL_SEMI MT(MOD_RCTL, KC_SCLN)
 
 // LAYER TAP BEHAVIORS
@@ -39,7 +39,7 @@ enum combo_events {
 
 #ifdef COMBO_ENABLE
 const uint16_t PROGMEM capsword_combo[] = {KC_F, KC_J, COMBO_END};
-const uint16_t PROGMEM capslock_combo[] = {KC_W, KC_O, COMBO_END};
+const uint16_t PROGMEM capslock_combo[] = {KC_Q, KC_P, COMBO_END};
 const uint16_t PROGMEM quot_combo[] = {KC_U, KC_I, COMBO_END};
 const uint16_t PROGMEM boot_combo[] = {KC_F1, KC_F10, COMBO_END};
 
@@ -54,7 +54,7 @@ combo_t key_combos[] = {
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   [_QWERTY] = LAYOUT(
     KC_Q,     KC_W,     KC_E,     KC_R,     KC_T,               KC_Y,     KC_U,     KC_I,     KC_O,     KC_P,
-    CTL_A,    ALT_S,    GUI_D,    SFT_F,    RALT_G,             RALT_H,   SFT_J,    GUI_K,    KC_L,     CTL_SEMI,
+    CTL_A,    ALT_S,    GUI_D,    SFT_F,    RALT_G,             LALT_H,   SFT_J,    GUI_K,    RALT_L,   CTL_SEMI,
     KC_Z,     KC_X,     KC_C,     KC_V,     KC_B,               KC_N,     KC_M,     KC_COMM,  KC_DOT,   KC_SLSH,
     KC_LCTL,                      NUM_ESC,  NAV_LSPC,           SYM_RSPC, FUN_ENT,                      KC_BSPC
   ),
