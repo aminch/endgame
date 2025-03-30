@@ -32,13 +32,16 @@
         "magic": true,
         "music": false,
         "oled": false,
+        "os_detection": true,
         "rgb_matrix": true,
         "rgblight": false
     },
     "combo": {
         "count": 2
     },
+    "tapping": {
         "term": 300
+    },
     "layouts": {
         "LAYOUT": {
             "layout": [
