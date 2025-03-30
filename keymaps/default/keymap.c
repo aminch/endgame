@@ -56,30 +56,30 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   ),
   
   [_NUMBER] = LAYOUT(
-    _______,  _______,  _______,  _______,  _______,            KC_PLUS,  KC_7,  KC_8,  KC_9,  _______,
-    KC_LCTL,  KC_LALT,  KC_LGUI,  KC_LSFT,  _______,            KC_MINS,  KC_4,  KC_5,  KC_6,  _______,
-    _______,  _______,  _______,  _______,  _______,            _______,  KC_1,  KC_2,  KC_3,  _______,
-    _______,                      _______,  _______,            KC_E,     KC_0,                _______
+    XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,            KC_PLUS,  KC_7,  KC_8,  KC_9,  XXXXXXX,
+    KC_LCTL,  KC_LALT,  KC_LGUI,  KC_LSFT,  XXXXXXX,            KC_MINS,  KC_4,  KC_5,  KC_6,  XXXXXXX,
+    XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,            XXXXXXX,  KC_1,  KC_2,  KC_3,  XXXXXXX,
+    XXXXXXX,                      XXXXXXX,  XXXXXXX,            KC_E,     KC_0,                XXXXXXX
   ),
   
   [_NAV] = LAYOUT(
-    _______,  _______,  _______,  _______,  KC_TAB,             KC_INS,  KC_HOME,  _______, KC_PGUP,  _______,
-    KC_LCTL,  KC_LALT,  KC_LGUI,  KC_LSFT,  KC_CAPS,            KC_DEL,  KC_END,   KC_UP,   KC_PGDN,  _______,
-    _______,  _______,  _______,  _______,  _______,            _______,  KC_LEFT, KC_DOWN, KC_RGHT,  _______,
-    _______,                      _______,  _______,            _______,  _______,                    _______
+    XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,  KC_TAB,             KC_INS,  KC_HOME,  XXXXXXX, KC_PGUP,  XXXXXXX,
+    KC_LCTL,  KC_LALT,  KC_LGUI,  KC_LSFT,  KC_CAPS,            KC_DEL,  KC_END,   KC_UP,   KC_PGDN,  XXXXXXX,
+    XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,            XXXXXXX,  KC_LEFT, KC_DOWN, KC_RGHT,  XXXXXXX,
+    XXXXXXX,                      XXXXXXX,  XXXXXXX,            XXXXXXX,  XXXXXXX,                    XXXXXXX
   ),
   
   [_SYMBOL] = LAYOUT(
-    _______,  _______,  _______,  _______,  _______,            _______,  _______,  _______,  _______,  _______,
-    _______,  _______,  _______,  _______,  _______,            _______,  _______,  _______,  _______,  _______,
-    _______,  _______,  _______,  _______,  _______,            _______,  _______,  _______,  _______,  _______,
-    _______,                      _______,  _______,            _______,  _______,                      _______
+    XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,            XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,
+    XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,            XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,
+    XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,            XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,
+    XXXXXXX,                      XXXXXXX,  XXXXXXX,            XXXXXXX,  XXXXXXX,                      XXXXXXX
   ),
   
   [_FUNCTION] = LAYOUT(
-    QK_BOOT,  _______,  _______,  _______,  _______,            _______,  KC_F7,  KC_F8,  KC_F9,  KC_F12,
-    KC_LCTL,  KC_LALT,  KC_LGUI,  KC_LSFT,  _______,            _______,  KC_F4,  KC_F5,  KC_F6,  KC_F11,
-    _______,  _______,  _______,  _______,  _______,            _______,  KC_F1,  KC_F2,  KC_F3,  KC_F10,
-    _______,                      _______,  _______,            _______,  _______,                _______
+    QK_BOOT,  XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,            XXXXXXX,  KC_F7,  KC_F8,  KC_F9,  KC_F12,
+    KC_LCTL,  KC_LALT,  KC_LGUI,  KC_LSFT,  XXXXXXX,            XXXXXXX,  KC_F4,  KC_F5,  KC_F6,  KC_F11,
+    XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,            XXXXXXX,  KC_F1,  KC_F2,  KC_F3,  KC_F10,
+    XXXXXXX,                      XXXXXXX,  XXXXXXX,            XXXXXXX,  XXXXXXX,                XXXXXXX
   ),
 };
