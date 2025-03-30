@@ -38,6 +38,7 @@
     "combo": {
         "count": 2
     },
+        "term": 300
     "layouts": {
         "LAYOUT": {
             "layout": [
