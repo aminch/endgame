@@ -1,0 +1,33 @@
+layout: {qmk_keyboard: endgame, layout_name: LAYOUT}
+layers:
+  QWERTY:
+  - [Q, W, E, R, T, Y, U, I, O, P]
+  - [LCTL A, LALT S, LGUI D, LSFT F, RALT G, LALT H, RSFT J, RGUI K, RALT L, RCTL ;]
+  - [Z, X, C, V, B, N, M, ',', ., /]
+  - [CONTROL, NUM ESC, NAV SPACE, SYM SPACE, FUN ENTER, BACKSPACE]
+  NUM:
+  - ['', '', '', '', '', '+', '7', '8', '9', '/']
+  - [LCTL, LALT, LGUI, LSFT, '', '-', '4', '5', '6', '*']
+  - ['', '', '', '', '', '', '1', '2', '3', '.']
+  - [SHIFT, '', '', E, '0', BACKSPACE]
+  NAV:
+  - ['', '', '', '', TAB, INS, HOME, '', PGUP, '']
+  - [LCTL, LALT, LGUI, LSFT, CAPS, DEL, END, UP, PGDN, '']
+  - ['', '', '', '', '', '', LEFT, DOWN, RGHT, '']
+  - [CONTROL, '', '', '', '', BACKSPACE]
+  SYMBOL:
+  - ['`', '~', '|', '', '[', ']', '&', '*', '''', '"']
+  - ['', '', '', '', (, ), $, '%', ^, '']
+  - ['', '', '', '', <, '>', '!', '@', '#', _]
+  - [SHIFT, '', '', '', '', BACKSPACE]
+  FUNCTION:
+  - ['', '', '', '', '', '', F7, F8, F9, F12]
+  - [LCTL, LALT, LGUI, LSFT, '', '', F4, F5, F6, F11]
+  - ['', '', '', '', '', '', F1, F2, F3, F10]
+  - [CONTROL, '', '', '', '', BACKSPACE]
+combos:
+  - { p: [7, 8], k: "\" '", l: [QWERTY] }
+  - { p: [0, 9], k: CAPS_LOCK, l: [QWERTY], a: top, o: 0.5, w: 60}
+  - { p: [13, 16], k: CAPS_WORD, l: [QWERTY], a: top, o: 0.25, w: 60}
+  - { p: [26, 29], k: QK_BOOT, l: [FUNCTION], a: bottom, o: 0.25, w: 60}
+  
