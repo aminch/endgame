@@ -40,7 +40,9 @@
         "count": 2
     },
     "tapping": {
-        "term": 300
+        "term": 200,
+        "chordal_hold": true,
+        "permissive_hold": true
     },
     "layouts": {
         "LAYOUT": {

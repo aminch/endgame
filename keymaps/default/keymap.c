@@ -93,6 +93,16 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   ),
 };
 
+#ifdef CHORDAL_HOLD
+const char chordal_hold_layout[MATRIX_ROWS][MATRIX_COLS] PROGMEM =
+    LAYOUT(
+        'L', 'L', 'L', 'L', 'L',     'R', 'R', 'R', 'R', 'R', 
+        'L', 'L', 'L', 'L', 'L',     'R', 'R', 'R', 'R', 'R', 
+        'L', 'L', 'L', 'L', 'L',     'R', 'R', 'R', 'R', 'R', 
+        'L',           'L', 'L',     'R', 'R',           'R'
+    );
+#endif  // CHORDAL_HOLD
+
 bool process_record_user(uint16_t keycode, keyrecord_t *record)
 {
     switch (keycode) {
