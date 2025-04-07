@@ -44,6 +44,9 @@
         "chordal_hold": true,
         "permissive_hold": true
     },
+    "audio": {
+        "driver": "pwm_hardware"
+    },
     "layouts": {
         "LAYOUT": {
             "layout": [
