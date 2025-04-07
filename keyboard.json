@@ -19,7 +19,7 @@
         "pin": "GP16"
     },
     "features": {
-        "audio": true,
+        "audio": false,
         "backlight": false,
         "caps_word": true,
         "combo": true,
