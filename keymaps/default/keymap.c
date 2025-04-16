@@ -1,5 +1,6 @@
 #include QMK_KEYBOARD_H
 #include "keymap_us_international.h"
+#include "quantum/rgblight/rgblight.h"
 
 enum layer_names {
     _QWERTY,
@@ -156,4 +157,14 @@ bool combo_should_trigger(uint16_t combo_index, combo_t *combo, uint16_t keycode
   }
 
   return true;
+}
+
+void keyboard_post_init_user(void) {
+  //rgblight_setrgb_range(25, 0, 0, 0, 1);  // Red
+  //rgblight_setrgb_range(0, 25, 0, 0, 1);  // Green
+  //rgblight_setrgb_range(0, 0, 25, 0, 1);  // Blue
+  //rgblight_setrgb_range(0, 25, 25, 0, 1);  // Cyan
+  rgblight_setrgb_range(25, 0, 50, 0, 1);  // Purple
+  //rgblight_setrgb_range(25, 25, 0, 0, 1);  // Yellow
+  //rgblight_setrgb_range(25, 25, 25, 0, 1);  // White
 }

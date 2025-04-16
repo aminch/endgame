@@ -33,8 +33,8 @@
         "music": false,
         "oled": false,
         "os_detection": true,
-        "rgb_matrix": true,
-        "rgblight": false
+        "rgb_matrix": false,
+        "rgblight": true
     },
     "combo": {
         "count": 2
@@ -89,18 +89,7 @@
             ]
         }
     },
-    "rgb_matrix": {
-        "driver": "ws2812",
-        "led_count": 1,
-        "layout": [
-            { "flags": 4, "matrix": [0, 0], "x": 0, "y": 0}
-        ],
-        "animations": {
-            "solid_color": true,
-            "breathing": true,
-            "cycle_all": true,
-            "pixel_rain": true,
-            "typing_heatmap": true
-        }
+    "rgblight": {
+        "led_count": 1
     }
 }
