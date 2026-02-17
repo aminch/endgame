@@ -17,6 +17,8 @@ enum custom_keycodes {
   OE_ALT_0248
 };
 
+static bool is_macos_host = false;
+
 // LEFT HAND HOME ROW MODS
 #define LCTL_A MT(MOD_LCTL, KC_A)
 #define LGUI_S MT(MOD_LGUI, KC_S)
@@ -139,6 +141,20 @@ static void send_shifted_alt_code(
     }
 }
 
+static void send_macos_option_code(uint16_t base_key, bool shifted) {
+    register_code(KC_LALT);
+    if (shifted) {
+        register_code(KC_LSFT);
+    }
+
+    tap_code(base_key);
+
+    if (shifted) {
+        unregister_code(KC_LSFT);
+    }
+    unregister_code(KC_LALT);
+}
+
 typedef struct {
     uint16_t keycode;
     uint16_t lower[4];
@@ -190,11 +206,25 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
             clear_oneshot_mods();
             send_keyboard_report();
 
-            send_shifted_alt_code(
-                shifted,
-                alt_code->lower[0], alt_code->lower[1], alt_code->lower[2], alt_code->lower[3],
-                alt_code->upper[0], alt_code->upper[1], alt_code->upper[2], alt_code->upper[3]
-            );
+            if (is_macos_host) {
+                switch (keycode) {
+                    case AA_ALT_0229:
+                        send_macos_option_code(KC_A, shifted);
+                        break;
+                    case AE_ALT_0230:
+                        send_macos_option_code(KC_QUOT, shifted);
+                        break;
+                    case OE_ALT_0248:
+                        send_macos_option_code(KC_O, shifted);
+                        break;
+                }
+            } else {
+                send_shifted_alt_code(
+                    shifted,
+                    alt_code->lower[0], alt_code->lower[1], alt_code->lower[2], alt_code->lower[3],
+                    alt_code->upper[0], alt_code->upper[1], alt_code->upper[2], alt_code->upper[3]
+                );
+            }
 
             set_mods(mods);
             set_weak_mods(weak_mods);
@@ -235,11 +265,13 @@ bool process_detected_host_os_kb(os_variant_t detected_os) {
             // When MacOS is detected, flip GUI and ALT
             keymap_config.swap_lalt_lgui = true;
             keymap_config.swap_ralt_rgui = true;
+            is_macos_host = true;
             break;
         case OS_UNSURE:
         case OS_LINUX:
         case OS_WINDOWS:
         case OS_IOS:
+            is_macos_host = false;
             break;
     }
 
