@@ -11,7 +11,10 @@ enum layer_names {
 };
 
 enum custom_keycodes {
-  L_CTRL = SAFE_RANGE
+  L_CTRL = SAFE_RANGE,
+  AA_ALT_0229,
+  AE_ALT_0230,
+  OE_ALT_0248
 };
 
 // LEFT HAND HOME ROW MODS
@@ -40,7 +43,10 @@ enum combo_events {
   CAPSWORD_COMBO,
   CAPSLOCK_COMBO,
   QUOT_COMBO,
-  BOOT_COMBO
+  BOOT_COMBO,
+  NOR_AA_COMBO,
+  NOR_AE_COMBO,
+  NOR_OE_COMBO
 };
 
 #ifdef COMBO_ENABLE
@@ -48,12 +54,18 @@ const uint16_t PROGMEM capsword_combo[] = {LSFT_F, RSFT_J, COMBO_END};
 const uint16_t PROGMEM capslock_combo[] = {KC_Q, KC_P, COMBO_END};
 const uint16_t PROGMEM quot_combo[] = {KC_U, KC_I, COMBO_END};
 const uint16_t PROGMEM boot_combo[] = {KC_F1, KC_F10, COMBO_END};
+const uint16_t PROGMEM nor_aa_combo[] = {KC_O, KC_P, COMBO_END};
+const uint16_t PROGMEM nor_ae_combo[] = {RGUI_L, RCTL_SEMI, COMBO_END};
+const uint16_t PROGMEM nor_oe_combo[] = {RALT_K, RGUI_L, COMBO_END};
 
 combo_t key_combos[] = {
     [CAPSWORD_COMBO] = COMBO(capsword_combo, CW_TOGG),
     [CAPSLOCK_COMBO] = COMBO(capslock_combo, KC_CAPS),
     [QUOT_COMBO] = COMBO(quot_combo, KC_QUOT),
-    [BOOT_COMBO] = COMBO(boot_combo, QK_BOOT)
+    [BOOT_COMBO] = COMBO(boot_combo, QK_BOOT),
+    [NOR_AA_COMBO] = COMBO(nor_aa_combo, AA_ALT_0229),
+    [NOR_AE_COMBO] = COMBO(nor_ae_combo, AE_ALT_0230),
+    [NOR_OE_COMBO] = COMBO(nor_oe_combo, OE_ALT_0248)
 };
 #endif // COMBO_ENABLE
 
@@ -104,23 +116,109 @@ const char chordal_hold_layout[MATRIX_ROWS][MATRIX_COLS] PROGMEM =
     );
 #endif  // CHORDAL_HOLD
 
-bool process_record_user(uint16_t keycode, keyrecord_t *record)
-{
+static void send_alt_code(uint16_t key1, uint16_t key2, uint16_t key3, uint16_t key4) {
+    register_code(KC_LALT);
+    wait_ms(10);
+    tap_code_delay(key1, 10);
+    tap_code_delay(key2, 10);
+    tap_code_delay(key3, 10);
+    tap_code_delay(key4, 10);
+    wait_ms(10);
+    unregister_code(KC_LALT);
+}
+
+static void send_shifted_alt_code(
+    bool shifted,
+    uint16_t lower_key1, uint16_t lower_key2, uint16_t lower_key3, uint16_t lower_key4,
+    uint16_t upper_key1, uint16_t upper_key2, uint16_t upper_key3, uint16_t upper_key4
+) {
+    if (shifted) {
+        send_alt_code(upper_key1, upper_key2, upper_key3, upper_key4);
+    } else {
+        send_alt_code(lower_key1, lower_key2, lower_key3, lower_key4);
+    }
+}
+
+typedef struct {
+    uint16_t keycode;
+    uint16_t lower[4];
+    uint16_t upper[4];
+} alt_code_entry_t;
+
+static const alt_code_entry_t aa_alt_code = {
+    AA_ALT_0229,
+    {KC_P0, KC_P2, KC_P2, KC_P9},
+    {KC_P0, KC_P1, KC_P9, KC_P7}
+};
+
+static const alt_code_entry_t ae_alt_code = {
+    AE_ALT_0230,
+    {KC_P0, KC_P2, KC_P3, KC_P0},
+    {KC_P0, KC_P1, KC_P9, KC_P8}
+};
+
+static const alt_code_entry_t oe_alt_code = {
+    OE_ALT_0248,
+    {KC_P0, KC_P2, KC_P4, KC_P8},
+    {KC_P0, KC_P2, KC_P1, KC_P6}
+};
+
+static const alt_code_entry_t *find_alt_code_entry(uint16_t keycode) {
+    switch (keycode) {
+        case AA_ALT_0229:
+            return &aa_alt_code;
+        case AE_ALT_0230:
+            return &ae_alt_code;
+        case OE_ALT_0248:
+            return &oe_alt_code;
+        default:
+            return NULL;
+    }
+}
+
+bool process_record_user(uint16_t keycode, keyrecord_t *record) {
+    const alt_code_entry_t *alt_code = find_alt_code_entry(keycode);
+    if (alt_code != NULL) {
+        if (record->event.pressed) {
+            uint8_t mods         = get_mods();
+            uint8_t weak_mods    = get_weak_mods();
+            uint8_t oneshot_mods = get_oneshot_mods();
+            bool    shifted      = (mods | weak_mods | oneshot_mods) & MOD_MASK_SHIFT;
+
+            del_mods(MOD_MASK_SHIFT);
+            del_weak_mods(MOD_MASK_SHIFT);
+            clear_oneshot_mods();
+            send_keyboard_report();
+
+            send_shifted_alt_code(
+                shifted,
+                alt_code->lower[0], alt_code->lower[1], alt_code->lower[2], alt_code->lower[3],
+                alt_code->upper[0], alt_code->upper[1], alt_code->upper[2], alt_code->upper[3]
+            );
+
+            set_mods(mods);
+            set_weak_mods(weak_mods);
+            set_oneshot_mods(oneshot_mods);
+            send_keyboard_report();
+        }
+        return false;
+    }
+
     switch (keycode) {
         case L_CTRL:
             // Handle lower left key differently when MacOS is detected
             if (record->event.pressed) {
-              if (keymap_config.swap_lalt_lgui) {
-                  register_mods(MOD_LGUI);
-              } else {
-                  register_mods(MOD_LCTL);
-              }
+                if (keymap_config.swap_lalt_lgui) {
+                    register_mods(MOD_LGUI);
+                } else {
+                    register_mods(MOD_LCTL);
+                }
             } else {
-              if (keymap_config.swap_lalt_lgui) {
-                  unregister_mods(MOD_LGUI);
-              } else {
-                  unregister_mods(MOD_LCTL);
-              }
+                if (keymap_config.swap_lalt_lgui) {
+                    unregister_mods(MOD_LGUI);
+                } else {
+                    unregister_mods(MOD_LCTL);
+                }
             }
             break;
     }
@@ -128,24 +226,24 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record)
 }
 
 bool process_detected_host_os_kb(os_variant_t detected_os) {
-  if (!process_detected_host_os_user(detected_os)) {
-      return false;
-  }
+    if (!process_detected_host_os_user(detected_os)) {
+        return false;
+    }
 
-  switch (detected_os) {
-      case OS_MACOS:
-          // When MacOS is detected, flip GUI and ALT
-          keymap_config.swap_lalt_lgui = true;
-          keymap_config.swap_ralt_rgui = true;
-          break; 
-      case OS_UNSURE:
-      case OS_LINUX:
-      case OS_WINDOWS:
-      case OS_IOS:
-          break;
-  }
-  
-  return true;
+    switch (detected_os) {
+        case OS_MACOS:
+            // When MacOS is detected, flip GUI and ALT
+            keymap_config.swap_lalt_lgui = true;
+            keymap_config.swap_ralt_rgui = true;
+            break;
+        case OS_UNSURE:
+        case OS_LINUX:
+        case OS_WINDOWS:
+        case OS_IOS:
+            break;
+    }
+
+    return true;
 }
 
 bool combo_should_trigger(uint16_t combo_index, combo_t *combo, uint16_t keycode, keyrecord_t *record) {
@@ -154,9 +252,37 @@ bool combo_should_trigger(uint16_t combo_index, combo_t *combo, uint16_t keycode
           if (!layer_state_is(_FUNCTION)) {
               return false;
           }
+        break;
+      case NOR_AA_COMBO:
+      case NOR_AE_COMBO:
+      case NOR_OE_COMBO:
+        if (get_highest_layer(default_layer_state) != _QWERTY) {
+          return false;
+        }
+        break;
   }
 
   return true;
+}
+
+uint16_t get_combo_term(uint16_t combo_index, combo_t *combo) {
+    switch (combo_index) {
+        case NOR_AA_COMBO:
+        case NOR_AE_COMBO:
+        case NOR_OE_COMBO:
+            return 80;
+    }
+    return COMBO_TERM;
+}
+
+bool get_combo_must_tap(uint16_t combo_index, combo_t *combo) {
+    switch (combo_index) {
+        case NOR_AA_COMBO:
+        case NOR_AE_COMBO:
+        case NOR_OE_COMBO:
+            return true;
+    }
+    return false;
 }
 
 void keyboard_post_init_user(void) {
