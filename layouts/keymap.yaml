@@ -32,3 +32,6 @@ combos:
   - { p: [0, 9], k: CAPS_LOCK, l: [QWERTY], a: top, o: 0.5, w: 60}
   - { p: [13, 16], k: CAPS_WORD, l: [QWERTY], a: top, o: 0.25, w: 60}
   - { p: [26, 29], k: QK_BOOT, l: [FUNCTION], a: bottom, o: 0.25, w: 60}
+  - { p: [8, 9], k: "Å", l: [QWERTY] }
+  - { p: [17, 18], k: "Ø", l: [QWERTY] }
+  - { p: [18, 19], k: "Æ", l: [QWERTY] }

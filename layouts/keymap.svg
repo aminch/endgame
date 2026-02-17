@@ -328,6 +328,18 @@ path.combo { stroke: #7f7f7f; }
 <rect rx="6" ry="6" x="306" y="28" width="60" height="26" class="combo"/>
 <text x="336" y="41" class="combo tap"><tspan style="font-size: 78%">CAPS_WORD</tspan></text>
 </g>
+<g class="combo combopos-3">
+<rect rx="6" ry="6" x="602" y="15" width="28" height="26" class="combo"/>
+<text x="616" y="28" class="combo tap">Å</text>
+</g>
+<g class="combo combopos-4">
+<rect rx="6" ry="6" x="546" y="71" width="28" height="26" class="combo"/>
+<text x="560" y="84" class="combo tap">Ø</text>
+</g>
+<g class="combo combopos-5">
+<rect rx="6" ry="6" x="602" y="71" width="28" height="26" class="combo"/>
+<text x="616" y="84" class="combo tap">Æ</text>
+</g>
 </g>
 </g>
 <g transform="translate(30, 336)" class="layer-NUM">
